@@ -1,0 +1,4 @@
+Dependency/OverBoundary:
+  Description: 'Rectrict which constants can be referred in a given namespace.'
+  Enabled: false
+  Rules: []

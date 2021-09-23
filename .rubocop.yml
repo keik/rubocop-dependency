@@ -1,0 +1,13 @@
+AllCops:
+  TargetRubyVersion: 2.5
+  NewCops: disable
+
+Metrics:
+  Enabled: false
+
+Style:
+  Enabled: false
+
+Naming/FileName:
+  Exclude:
+    - lib/rubocop-dependency.rb
