@@ -1,13 +1,25 @@
 version: 2.1
+
 jobs:
-  build:
+  lint:
     docker:
-      - image: ruby:2.6.6
+      - image: cimg/ruby:2.6.8
     steps:
       - checkout
-      - run:
-          name: Run the default task
-          command: |
-            gem install bundler -v 2.2.7
-            bundle install
-            bundle exec rake
+      - run: bundle install
+      - run: rubocop
+
+  spec:
+    docker:
+      - image: cimg/ruby:2.6.8
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake spec
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - lint
+      - spec

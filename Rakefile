@@ -9,6 +9,12 @@ RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = FileList['spec/**/*_spec.rb']
 end
 
+desc 'Run RSpec with code coverage'
+task :coverage do
+  ENV['COVERAGE'] = 'true'
+  Rake::Task['spec'].execute
+end
+
 desc 'Generate a new cop with a template'
 task :new_cop, [:cop] do |_task, args|
   require 'rubocop'
