@@ -9,7 +9,7 @@ module RuboCop
       #   # Rules:
       #   #   - BannedConsts: Foo
       #   #     FromNamespacePatterns:
-      #   #    - \ABar(\W|\z)
+      #   #       - \ABar(\W|\z)
       #
       #   class Bar
       #     # Bad. Cannot refer Foo from Bar namespace

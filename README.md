@@ -2,7 +2,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/keik/rubocop-dependency/badge.svg?branch=circleci)](https://coveralls.io/github/keik/rubocop-dependency?branch=circleci)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rubocop/dependency`. To experiment with that code, run `bin/console` for an interactive prompt.
+Code style checking for dependencies control, as an extension to [RuboCop](https://github.com/rubocop/rubocop).
 
 TODO: Delete this and the text above, and describe your gem
 
@@ -14,17 +14,37 @@ Add this line to your application's Gemfile:
 gem 'rubocop-dependency', require: false
 ```
 
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install rubocop-dependency
-
 ## Usage
 
-TODO: Write usage instructions here
+Put this into your .rubocop.yml.
+
+```
+require: rubocop-dependency
+```
+
+## Cops
+
+Dependency/OverBoundary
+
+Check not to refer constants over dependency boundaries which given from `Rules` config.
+
+When the following `Rules` is given,
+
+```
+Rules:                      // Array of each rules
+  - BannedConsts: Foo       // Array<String> | String. Ba
+    FromNamespacePatterns:  // Array<String> | String. This value is used as Regexp pattern
+      - \ABar(\W|\z)
+```
+
+The following code is considered problems.
+
+```
+class Bar
+  Foo
+  ^^^ Const `Foo` cannot use from namespace `Bar`.
+end
+```
 
 ## Development
 
@@ -34,4 +54,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rubocop-dependency.
+Bug reports and pull requests are welcome on GitHub at https://github.com/keik/rubocop-dependency.
