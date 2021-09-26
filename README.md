@@ -4,8 +4,6 @@
 
 Code style checking for dependencies control, as an extension to [RuboCop](https://github.com/rubocop/rubocop).
 
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -18,7 +16,7 @@ gem 'rubocop-dependency', require: false
 
 Put this into your .rubocop.yml.
 
-```
+```yaml
 require: rubocop-dependency
 ```
 
