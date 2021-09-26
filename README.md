@@ -24,22 +24,22 @@ require: rubocop-dependency
 
 ## Cops
 
-Dependency/OverBoundary
+### Dependency/OverBoundary
 
 Check not to refer constants over dependency boundaries which given from `Rules` config.
 
 When the following `Rules` is given,
 
-```
-Rules:                      // Array of each rules
-  - BannedConsts: Foo       // Array<String> | String. Ba
-    FromNamespacePatterns:  // Array<String> | String. This value is used as Regexp pattern
+```yaml
+Rules:                      # Array of each rules
+  - BannedConsts: Foo       # Array<String> | String.
+    FromNamespacePatterns:  # Array<String> | String. This value is used as Regexp pattern.
       - \ABar(\W|\z)
 ```
 
 The following code is considered problems.
 
-```
+```ruby
 class Bar
   Foo
   ^^^ Const `Foo` cannot use from namespace `Bar`.
