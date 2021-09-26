@@ -2,6 +2,6 @@
 
 module RuboCop
   module Dependency
-    VERSION = "0.1.0-beta.1"
+    VERSION = "0.1.1"
   end
 end
