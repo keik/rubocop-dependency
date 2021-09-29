@@ -125,6 +125,28 @@ RSpec.describe RuboCop::Cop::Dependency::OverBoundary, :config do
       RUBY
     end
 
+    it 'registers an offense when define const `B` in singleton class of class `A`' do
+      expect_offense(<<~RUBY)
+        class A
+          class << self
+            B.new
+            ^ Const `B` cannot use from namespace `A`.
+          end
+        end
+      RUBY
+    end
+
+    it 'registers an offense when define const `B` in block in class `A`' do
+      expect_offense(<<~RUBY)
+        class A
+          foo do
+            B.new
+            ^ Const `B` cannot use from namespace `A`.
+          end
+        end
+      RUBY
+    end
+
     it 'does not registers an offense when define const `B` in class `A`' do
       expect_no_offenses(<<~RUBY)
         class A

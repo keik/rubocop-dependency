@@ -19,7 +19,11 @@ module RuboCop
       class OverBoundary < Base
         def on_const(node)
           const_name = node.const_name
-          parent_module_name = node.parent_module_name
+          current_namespace =
+            node
+            .each_ancestor(:class, :module)
+            .map { |a| a.defined_module_name }
+            .reverse.join('::')
 
           if cop_config['Rules']
              .select { |rule|
@@ -27,10 +31,10 @@ module RuboCop
              }
              .any? { |rule|
                Array(rule['FromNamespacePatterns']).any? { |from_pattern|
-                 Regexp.new(from_pattern).match?(parent_module_name)
+                 Regexp.new(from_pattern).match?(current_namespace)
                }
              }
-            add_offense(node, message: "Const `#{const_name}` cannot use from namespace `#{parent_module_name}`.")
+            add_offense(node, message: "Const `#{const_name}` cannot use from namespace `#{current_namespace}`.")
           end
         end
       end
