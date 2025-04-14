@@ -3,7 +3,7 @@
 RSpec.describe RuboCop::Cop::Dependency::OverBoundary, :config do
   context 'when simple Rules' do
     let(:cop_config) do
-      RuboCop::Config.new('Rules' => [{ 'BannedConsts' => 'B', 'FromNamespacePatterns' => 'A' }])
+      RuboCop::Config.new('Rules' => [{ 'BannedConstPatterns' => 'B', 'FromNamespacePatterns' => 'A' }])
     end
 
     it 'registers an offense when referring const `B` from expression of class `A`' do
@@ -158,7 +158,7 @@ RSpec.describe RuboCop::Cop::Dependency::OverBoundary, :config do
 
   context 'when complex Rules' do
     let(:cop_config) do
-      RuboCop::Config.new('Rules' => [{ 'BannedConsts' => 'Bar', 'FromNamespacePatterns' => '\AFoo\z' }])
+      RuboCop::Config.new('Rules' => [{ 'BannedConstPatterns' => '\ABar', 'FromNamespacePatterns' => '\AFoo\z' }])
     end
 
     it 'registers an offense when referring const `B` from expression of class `A`' do

@@ -7,7 +7,7 @@ module RuboCop
       #
       # @example
       #   # Rules:
-      #   #   - BannedConsts: Foo
+      #   #   - BannedConstPatterns: Foo
       #   #     FromNamespacePatterns:
       #   #       - \ABar(\W|\z)
       #
@@ -18,6 +18,8 @@ module RuboCop
       #
       class OverBoundary < Base
         def on_const(node)
+          return if node.parent&.const_type?
+
           const_name = node.const_name
           current_namespace =
             node
@@ -27,7 +29,9 @@ module RuboCop
 
           if cop_config['Rules']
              .select { |rule|
-               Array(rule['BannedConsts']).include?(const_name)
+               Array(rule['BannedConstPatterns']).any? { |banned_pattern|
+                 Regexp.new(banned_pattern).match?(const_name)
+               }
              }
              .any? { |rule|
                Array(rule['FromNamespacePatterns']).any? { |from_pattern|
