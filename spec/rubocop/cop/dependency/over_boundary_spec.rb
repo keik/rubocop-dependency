@@ -170,6 +170,15 @@ RSpec.describe RuboCop::Cop::Dependency::OverBoundary, :config do
       RUBY
     end
 
+    it 'registers an offense when referring const `Bar::X` from class `Foo`' do
+      expect_offense(<<~RUBY)
+        class Foo
+          Bar::X.new
+          ^^^^^^ Const `Bar::X` cannot use from namespace `Foo`.
+        end
+      RUBY
+    end
+
     it 'does not registers an offense when referring const `X::Bar` from class `Foo`' do
       expect_no_offenses(<<~RUBY)
         class Foo
