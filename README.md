@@ -29,9 +29,9 @@ Check not to refer constants over dependency boundaries which given from `Rules`
 When the following `Rules` is given,
 
 ```yaml
-Rules:                      # Array of each rules
-  - BannedConsts: Foo       # Array<String> | String.
-    FromNamespacePatterns:  # Array<String> | String. This value is used as Regexp pattern.
+Rules:                        # Array of each rules
+  - BannedConstPatterns: Foo  # Array<String> | String. This value is used as Regexp pattern.
+    FromNamespacePatterns:    # Array<String> | String. This value is used as Regexp pattern.
       - \ABar(\W|\z)
 ```
 
