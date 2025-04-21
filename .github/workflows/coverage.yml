@@ -1,20 +1,19 @@
-on: ["push", "pull_request"]
+name: Test
 
-name: Test Coveralls
+on:
+  pull_request:
 
 jobs:
-  build:
-    name: Build
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.6.8'
-      - name: coverage
-        run: |
-          bundle install
-          rake coverage
+          ruby-version: '3.2.6'
+          bundler-cache: true
+      - run: bundle ex rubocop
+      - run: COVERAGE=true bundle ex rspec
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
